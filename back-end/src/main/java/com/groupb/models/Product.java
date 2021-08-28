@@ -1,14 +1,38 @@
 package com.groupb.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
+@Entity(name="inventory")
 public class Product {
 	
 	// this is the product that we carry , not the object in our warehouse
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+	@SequenceGenerator(name="id_generator", sequenceName = "product_id_seq", allocationSize = 1)
+	@Column(name="id")
 	private int productId;
+	
+	@Column
 	private String title;
+	
+	@Column
 	private String category;
-	private String Manufacturer;
+	
+	@Column
+	private String manufacturer;
+	
+	@Column(name="minimum_limit")
 	private int minLimit;
+	
+	@OneToOne(mappedBy="product")
+	private ProductStock stock;
+	
 	public int getProductId() {
 		return productId;
 	}
@@ -28,10 +52,10 @@ public class Product {
 		this.category = category;
 	}
 	public String getManufacturer() {
-		return Manufacturer;
+		return manufacturer;
 	}
 	public void setManufacturer(String manufacturer) {
-		Manufacturer = manufacturer;
+		this.manufacturer = manufacturer;
 	}
 	public int getMinLimit() {
 		return minLimit;
@@ -39,6 +63,11 @@ public class Product {
 	public void setMinLimit(int minLimit) {
 		this.minLimit = minLimit;
 	}
-	
+	public ProductStock getStock() {
+		return this.stock;
+	}
+	public void setStock(ProductStock stock) {
+		this.stock = stock;
+	}
 	
 }
