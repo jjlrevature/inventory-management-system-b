@@ -2,30 +2,51 @@ package com.groupb.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
 public class ProductStock {
 
 	// This is an actual item in the warehouse
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+	@SequenceGenerator(name="id_generator", sequenceName = "product_stock_id_seq", allocationSize = 1)
+	@Column(name="id")
 	private int warehouseStockId;
-	private int productIdKey;
+	
+	@OneToOne
+	@JoinColumn(name="product_id")
+	private Product product;
+	
+	@Column(name="transaction_date")
 	private Date dateOfTrans;
+	
 	private String vendor;
+	
+	@Column(name="batch_code")
 	private String batchCode;
+	
+	@Column(name="invoice_number")
 	private String invoiceNum;
+	
+	@Column
 	private int quantity;
+	
+	@Column(name="transaction_type")
 	private String transType;
+	
 	public int getWarehouseStockId() {
 		return warehouseStockId;
 	}
 	public void setWarehouseStockId(int warehouseStockId) {
 		this.warehouseStockId = warehouseStockId;
 	}
-	public int getProductIdKey() {
-		return productIdKey;
-	}
-	public void setProductIdKey(int productIdKey) {
-		this.productIdKey = productIdKey;
-	}
+
 	public Date getDateOfTrans() {
 		return dateOfTrans;
 	}
@@ -62,6 +83,8 @@ public class ProductStock {
 	public void setTransType(String transType) {
 		this.transType = transType;
 	}
-	
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	
 }
