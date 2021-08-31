@@ -1,15 +1,19 @@
 * {
     font-family: 'Quicksand', sans-serif;
 }
-.navbar-brand {
-    color: pink;
-}
+
 section { 
     height: 100vh; 
     /*display: flex;
     justify-content: center;
     align-items: center; */
     padding: 100px;
+}
+
+.green-section {
+    background: #ADD100;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #7B920A, #ADD100);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #7B920A, #ADD100); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .home {
@@ -25,10 +29,15 @@ table {
     border: 1px solid black;
 }
 
-form {
-    border-radius: 30px;
+h1, h2 {
+    color: white;
 }
 
 .card {
     padding: 50px;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
 }
