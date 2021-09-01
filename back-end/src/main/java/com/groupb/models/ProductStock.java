@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -16,11 +17,11 @@ public class ProductStock {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
 	@SequenceGenerator(name="id_generator", sequenceName = "product_stock_id_seq", allocationSize = 1)
-	@Column(name="id")
+	@Column(name="product_stock_id")
 	private int warehouseStockId;
 	
-	@OneToOne
-	@JoinColumn(name="product_id")
+	@ManyToOne
+	@JoinColumn(name="product_ref_id", nullable=false)
 	private Product product;
 	
 	@Column(name="transaction_date")

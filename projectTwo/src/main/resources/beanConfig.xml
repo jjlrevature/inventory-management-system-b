@@ -10,14 +10,14 @@
 
 	<context:annotation-config></context:annotation-config>
 
-	<context:component-scan base-package="com.groupb.controllers;com.groupb.DAO;com.groupb.model;com.groupb.service"/>
+	<context:component-scan base-package="project.two.controllers;project.two.dao;project.two.models;project.two.services"/>
 
 
 	<!-- Bean definitions -->
 	
-   	<bean id="ProductManager" class="com.groupb.service.ProductManagerImpl"></bean>
-   	<bean id="ProductStockManager" class="com.groupb.service.ProductStockManagerImpl"></bean>
-   	<bean id="UserManager" class="com.groupb.service.UserManagerimpl"></bean>
-   	<bean id="ProductDAO" class="com.groupb.DAO"></bean>
+   	<bean id="ProductController" class="project.two.controllers.ProductController"></bean>
+   	<bean id="ProductDAO" class="project.two.dao.ProductDAO"></bean>
+   	<bean id="ProductService" class="project.two.services.ProductServiceImpl"></bean>
+   	
    	
 </beans>
