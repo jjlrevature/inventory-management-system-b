@@ -1,10 +1,14 @@
 package com.groupb.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -15,7 +19,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
 	@SequenceGenerator(name="id_generator", sequenceName = "product_id_seq", allocationSize = 1)
-	@Column(name="id")
+	@Column(name="productid")
 	private int productId;
 	
 	@Column
@@ -27,11 +31,11 @@ public class Product {
 	@Column
 	private String manufacturer;
 	
-	@Column(name="minimum_limit")
+	@Column(name="minimumlimit")
 	private int minLimit;
 	
-	@OneToOne(mappedBy="product")
-	private ProductStock stock;
+	@OneToMany(mappedBy="product", cascade=CascadeType.ALL)
+	private List<ProductStock> stock;
 	
 	public int getProductId() {
 		return productId;
@@ -63,11 +67,11 @@ public class Product {
 	public void setMinLimit(int minLimit) {
 		this.minLimit = minLimit;
 	}
-	public ProductStock getStock() {
+	public List<ProductStock> getStock() {
 		return this.stock;
 	}
-	public void setStock(ProductStock stock) {
-		this.stock = stock;
+	public void addStock(ProductStock stock) {
+		this.stock.add(stock);
 	}
 	
 }
