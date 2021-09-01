@@ -23,7 +23,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    /*HttpClientModule*/
   ],
   providers: [],
   bootstrap: [AppComponent]
