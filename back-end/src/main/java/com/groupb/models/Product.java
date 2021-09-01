@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-@Entity(name="inventory")
+@Entity(name="products")
 public class Product {
 	
 	// this is the product that we carry , not the object in our warehouse
