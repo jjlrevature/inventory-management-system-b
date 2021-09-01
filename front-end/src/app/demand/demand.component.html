@@ -1,0 +1,23 @@
+<div id="main">
+    <h1>In Demand Products</h1>
+    <ng-container *ngIf="empty === false; else emptyBlock">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Demand</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prod of list">
+                    <td>{{prod.title}}</td>
+                    <td>{{prod.demand}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>
+
+<ng-template #emptyBlock>
+    <h2>No Products Under Minimum Limit</h2>
+</ng-template>
