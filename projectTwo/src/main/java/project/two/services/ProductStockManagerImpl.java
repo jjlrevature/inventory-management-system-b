@@ -36,6 +36,14 @@ public class ProductStockManagerImpl implements ProductStockManager{
 		// TODO Auto-generated method stub
 		return psDao.getNsPSQuantity();
 	}
+	
+	public List<ProductStock>getStock() {
+		return psDAO.findAll();
+	}
+	
+	public ProductStock addStock(ProductStock prod) {
+		return psDAO.save(prod);
+	}
 
 	@Override
 	public List<ProductStock> getCurrentProductStock(int productId) {
