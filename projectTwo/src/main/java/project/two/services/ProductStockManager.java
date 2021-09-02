@@ -11,4 +11,8 @@ public interface ProductStockManager {
 	public List<ProductStock> getXboxSeriesXInStock();
 	
 	public List<ProductStock> getNintendoSwitchInStock();
+	
+	public List<ProductStock>getStock();
+	
+	public ProductStock addStock(ProductStock prod);
 }

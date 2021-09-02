@@ -13,8 +13,7 @@ import { StockDetailComponent } from './stock-detail/stock-detail.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
-import {ModalDismissReasons, NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -34,7 +33,7 @@ import {ModalDismissReasons, NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstr
     FormsModule,
     HttpClientModule,
     FormsModule,
-    NgModule
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

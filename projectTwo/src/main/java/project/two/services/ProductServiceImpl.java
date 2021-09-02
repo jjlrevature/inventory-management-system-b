@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import project.two.dao.ProductDAO;
 import project.two.models.Product;
-import project.two.models.ProductStock;
 @Service
 public class ProductServiceImpl implements ProductService{
 
