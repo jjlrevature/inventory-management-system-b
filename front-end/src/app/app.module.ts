@@ -8,7 +8,7 @@ import { StockDetailComponent } from './stock-detail/stock-detail.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import {ModalDismissReasons, NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -21,8 +21,8 @@ import {ModalDismissReasons, NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstr
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    FormsModule,
-    NgbModule
+    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
