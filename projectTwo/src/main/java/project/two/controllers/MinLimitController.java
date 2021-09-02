@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import project.two.models.Product;
 import project.two.services.ProductService;
 
+
 @RestController
 @RequestMapping(path="/under-min-limit", produces="application/json")
 public class MinLimitController {
@@ -28,7 +29,7 @@ public class MinLimitController {
 	
 	
 	@GetMapping
-	public ArrayList<Product> getProductsUnderMinimumLimit() {
+	public List<Product> getProductsUnderMinimumLimit() {
 		ArrayList<Product> productList = new ArrayList<>();
 		RestTemplate rest = new RestTemplate();
 		
@@ -53,7 +54,6 @@ public class MinLimitController {
 				productList.add(productUnderLimit);
 			}
 		}
-		
 		System.out.println(productList);
 		
 		return productList;
@@ -61,7 +61,6 @@ public class MinLimitController {
 	}
 	
 	private boolean determineIfUnderML(Integer[] intArr) {
-		int productid = intArr[0];
 		int productQuantity = intArr[1];
 		boolean state = false;
 		if(productQuantity < 10 ) {
