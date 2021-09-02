@@ -19,8 +19,5 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 	@Query(value = "select product from Product product where product.productid=:ID")
 	public Product getProductById(@Param("ID") int id);
 	
-//	@Query(value="select ps from ProductStock ps where ps.product.title='Nintendo Switch'")
-//	public List<ProductStock> getNsPSQuantity();
-	
 }
 

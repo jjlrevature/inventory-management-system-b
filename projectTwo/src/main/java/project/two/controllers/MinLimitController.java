@@ -21,15 +21,13 @@ import project.two.services.ProductService;
 public class MinLimitController {
 
 	private static final Logger logger = LogManager.getLogger(ProductStockController.class.getName());
-	
-	
-	
+
 	@Autowired
-	private ProductService productManager;
-	
+	private ProductService productManager;	
 	
 	@GetMapping
 	public List<Product> getProductsUnderMinimumLimit() {
+		
 		ArrayList<Product> productList = new ArrayList<>();
 		RestTemplate rest = new RestTemplate();
 		
@@ -54,10 +52,8 @@ public class MinLimitController {
 				productList.add(productUnderLimit);
 			}
 		}
-		System.out.println(productList);
 		
 		return productList;
-		//return ps5Entity.getBody();
 	}
 	
 	private boolean determineIfUnderML(Integer[] intArr) {
