@@ -33,3 +33,4 @@ build/
 .vscode/
 /.metadata/
 back-end/src/main/resources/application.properties
+*.log
