@@ -16,5 +16,11 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 	@Query(value = "select p.title, p.minimumlimit, sum(ps.quantity) from inventory.product_stock ps join inventory.products p on ps.product_ref_id = p.productid group by p.title, p.minimumlimit having sum(ps.quantity) < p.minimumlimit", nativeQuery=true)
 	public List<Object[]> getD();
 	
+	@Query(value = "select product from Product product where product.productid=:ID")
+	public Product getProductById(@Param("ID") int id);
+	
+//	@Query(value="select ps from ProductStock ps where ps.product.title='Nintendo Switch'")
+//	public List<ProductStock> getNsPSQuantity();
+	
 }
 
