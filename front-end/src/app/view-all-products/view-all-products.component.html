@@ -13,35 +13,21 @@
             <th>Manufacturer</th>
             <th>Category</th>
             <th>Minimum Limit</th>
-            <th>Actual Qty</th>
-            <th></th>
-            <th></th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>43" LED TV</td>
-            <td>Samsung</td>
-            <td>Television</td>
-            <td>20</td>
-            <td>50</td>
-            <td><button class="btn btn-primary">View Stock</button></td>
-            <td><button class="btn btn-primary">Update Stock</button></td>
-            <td><button class="btn btn-primary">Delete Stock</button></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>43" LED TV</td>
-            <td>Samsung</td>
-            <td>Television</td>
-            <td>20</td>
-            <td>23</td>
-            <td><button class="btn btn-primary">View Stock</button></td>
-            <td><button class="btn btn-primary">Update Stock</button></td>
-            <td><button class="btn btn-primary">Delete Stock</button></td>
-        </tr>
+        <ng-container *ngIf="products != null: else other">
+            <tr *ngFor="let product of products;">
+                <td>{{products.productid}}</td>
+                <td>{{products.title}}</td>
+                <td>{{products.manufacturer}}</td>
+                <td>{{products.category}}</td>
+                <td>{{products.minLimit}}</td>
+                <td><button class="btn btn-primary">View Stock</button></td>
+                <td><button class="btn btn-primary">Update Stock</button></td>
+                <td><button class="btn btn-primary">Delete Stock</button></td>
+            </tr>        
+        </ng-container>
     </tbody>
 </table>
 
