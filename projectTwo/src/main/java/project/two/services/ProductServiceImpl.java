@@ -1,5 +1,6 @@
 package project.two.services;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ProductServiceImpl implements ProductService{
 				Map<String, Object> temp = new HashMap<String, Object>();
 				temp.put("title", l[0]);
 				temp.put("minLimit", l[1]);
-				temp.put("demand", l[2]);
+				temp.put("demand", (BigInteger.valueOf((Integer)l[1])).subtract(((BigInteger)l[2])));
 				map.add(temp);
 			}
 			return map;
