@@ -9,6 +9,7 @@ import { AddStockDetailComponent } from './add-stock-detail/add-stock-detail.com
 import { ViewStocksBelowThresholdComponent } from './view-stocks-below-threshold/view-stocks-below-threshold.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
