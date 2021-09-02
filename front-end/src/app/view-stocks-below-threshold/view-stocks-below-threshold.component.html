@@ -1,23 +1,25 @@
 <section>
 <h2>View Stock at Less Than Threshold Levels</h2>
 <div class="card">
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Title</th>
-            <th>Demand</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>LED TV</td>
-            <td>10</td>
-        </tr>
-        <tr>
-            <td>LED TV</td>
-            <td>10</td>
-        </tr>
-    </tbody>
-</table>
+<ng-container *ngIf="empty === false; else emptyBlock">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Demand</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prod of list">
+                <td>{{prod.title}}</td>
+                <td>{{prod.demand}}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
 </div>
 </section>
+
+<ng-template #emptyBlock>
+    <h3>No Product Stocks are below Threshold Level</h3>
+</ng-template>
