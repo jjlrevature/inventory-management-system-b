@@ -9,7 +9,13 @@ import { AddStockDetailComponent } from './add-stock-detail/add-stock-detail.com
 import { ViewStocksBelowThresholdComponent } from './view-stocks-below-threshold/view-stocks-below-threshold.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { StockDetailComponent } from './stock-detail/stock-detail.component';
+
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+import {ModalDismissReasons, NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -19,12 +25,16 @@ import { HttpClientModule } from '@angular/common/http';
     AddStockDetailComponent,
     ViewStocksBelowThresholdComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    StockDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    FormsModule,
+    HttpClientModule,
+    FormsModule,
+    NgModule
   ],
   providers: [],
   bootstrap: [AppComponent]

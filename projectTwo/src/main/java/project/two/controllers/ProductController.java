@@ -27,7 +27,7 @@ public class ProductController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping(path="onDemand", produces="application/json")
+	@GetMapping(path="inDemand", produces="application/json")
 	public ResponseEntity<Object> getOnDemand() {
 		return new ResponseEntity<Object>(prodService.getOnDemand(), HttpStatus.OK);
 	}
