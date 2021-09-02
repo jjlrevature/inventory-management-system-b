@@ -1,1 +1,110 @@
-<p>stock-detail works!</p>
+
+<button class="btn btn-md btn-outline-primary" (click)="open(content)">
+  <i class="fa fa-user"></i>New Product Detail</button>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Detail</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+
+      <div class="form-group">
+        <label for="vendor">vendor</label>
+        <input
+          type="text"
+          class="form-control"
+          id="vendor"
+          required
+          [(ngModel)]="addStock.vendor"
+          name="vendor"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="batchCode">batch_code</label>
+        <input
+          type="text"
+          class="form-control"
+          id="batchCode"
+          required
+          [(ngModel)]="addStock.batchCode"
+          name="batchCode"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="invoiceNum">invoiceNum</label>
+        <input
+          type="text"
+          class="form-control"
+          id="invoiceNum"
+          required
+          [(ngModel)]="addStock.invoiceNum"
+          name="invoiceNum"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">quantity</label>
+        <input
+          type="text"
+          class="form-control"
+          id="quantity"
+          required
+          [(ngModel)]="addStock.quantity"
+          name="quantity"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="transType">transType</label>
+        <input
+          type="text"
+          class="form-control"
+          id="transType"
+          required
+          [(ngModel)]="addStock.transType"
+          name="transType"
+        />
+      </div>
+      
+<button (click)="add()" class="btn btn-success">Product1</button>
+<button (click)="add2()" class="btn btn-success">Product2</button>
+<button (click)="add3()" class="btn btn-success">Product3</button>
+<!-- <button (click)="add4()" class="btn btn-success">Product4</button>
+<button (click)="add5()" class="btn btn-success">Product5</button> -->
+    </form>
+  </div>
+</ng-template>
+
+<table class="table table-bordered table-striped table-dark">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>transaction date</th>
+      <th>vendor</th>
+      <th>batch code</th>
+      <th>invoice number</th>
+      <th>quantity</th>
+      <th>transaction type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let stock of stockdetail">
+      <td><span>{{stock.warehouseStockId}}</span></td>
+      <td><span>{{stock.dateOfTrans}}</span></td>
+      <td><span>{{stock.vendor}}</span></td>
+      <td><span>{{stock.batchCode}}</span></td>
+      <td><span>{{stock.invoiceNum}}</span></td>
+      <td><span>{{stock.quantity}}</span></td>
+      <td><span>{{stock.transType}}</span></td>
+    </tr>
+    </tbody>
+  </table>
+
+  
