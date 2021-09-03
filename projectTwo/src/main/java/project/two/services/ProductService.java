@@ -11,5 +11,6 @@ public interface ProductService {
 	
 	public Product findProductById(int productID);
 	
+	public Product addProduct(Product product);
 	
 }
