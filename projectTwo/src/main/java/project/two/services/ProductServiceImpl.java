@@ -44,4 +44,7 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.getById(productID);
 	}
 	
+	public Product addProduct(Product product) {
+		return productDao.save(product);
+	}
 }

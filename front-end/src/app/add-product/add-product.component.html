@@ -1,47 +1,27 @@
 <section>
 <h2>Add New Product by Category</h2>
 <div class="card">
-<form action="">
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="form-group">
         <label for="category">Category </label>
-        <select name="category" id="">
-        <option value="television">Television</option>
-        </select>
+        <input type="text" name="category" ngModel="productModel.category">
     </div>
     <div class="form-group">
         <label for="title">Title </label>
-        <input type="text">
+        <input type="text" name="title" ngModel="productModel.title">
     </div>
     <div class="form-group">
         <label for="manufacturer">Manufacturer </label>
-        <input type="text">
+        <input type="text" name="manufacturer" ngModel="productModel.manufacturer">
     </div>
     <div class="form-group">
-        <label for="minimum_limit">Minimum Limit </label>
-        <input type="number">
+        <label for="minimumLimit">Minimum Limit </label>
+        <input type="number" name="minLimit" ngModel="productModel.minLimit">
     </div>
+    
     <button type="submit" class="btn btn-primary">Submit</button>
+    
 </form>
-<form action="" class="form-inline" [ngStyle]="{'font-weight': 'bolder'}">
-    <div class="form-group">
-        <label for="category">Category </label>
-        <select name="category" id="" placeholder="television">
-        <option value="television">Television</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="title">Title </label>
-        <input type="text" placeholder="something">
-    </div>
-    <div class="form-group">
-        <label for="manufacturer">Manufacturer </label>
-        <input type="text" placeholder="Samsung">
-    </div>
-    <div class="form-group">
-        <label for="minimum_limit">Minimum Limit </label>
-        <input type="number" placeholder="10">
-    </div>
-    <a href="">return to products</a>
-</form>
+
 </div>
 </section>
