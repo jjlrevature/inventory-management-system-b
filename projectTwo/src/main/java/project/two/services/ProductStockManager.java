@@ -2,6 +2,7 @@ package project.two.services;
 
 import java.util.List;
 
+import project.two.models.Product;
 import project.two.models.ProductStock;
 
 public interface ProductStockManager {

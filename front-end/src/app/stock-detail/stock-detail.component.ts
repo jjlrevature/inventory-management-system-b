@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 const baseUrl = 'http://localhost:8080/stock/add';
 const baseUrl2 = 'http://localhost:8080/stock/add2';
@@ -12,6 +12,7 @@ const baseUrl5 = 'http://localhost:8080/stock/add5';
 
 
 export class Stock {
+  prodId?: number;
   warehouseStockId?: number;
   dateOfTrans?: Date;
   vendor?: string;
@@ -40,7 +41,8 @@ addStock: Stock = {
 submitted = false;
 
 
-  constructor( private router: Router,private httpClient: HttpClient,private http: HttpClient) { }
+  constructor( private router: Router,private httpClient: HttpClient,private http: HttpClient
+    ,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -56,27 +58,12 @@ submitted = false;
   }
 
 
-  create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
-  }
-
-  create2(data: any): Observable<any> {
-    return this.http.post(baseUrl2, data);
-  }
-
-  create3(data: any): Observable<any> {
-    return this.http.post(baseUrl3, data);
-  }
-
-  create4(data: any): Observable<any> {
-    return this.http.post(baseUrl3, data);
-  }
-
-  create5(data: any): Observable<any> {
-    return this.http.post(baseUrl3, data);
+  create(prodId:any, data:any): Observable<any> {
+    return this.http.post(baseUrl + "/" + prodId, data);
   }
 
   add(): void {
+    const prodId = this.addStock.prodId;
     const data = {
       warehouseStockId: this.addStock.warehouseStockId,
       product: this.addStock.product,
@@ -89,7 +76,7 @@ submitted = false;
  
     };
 
-    this.create(data)
+    this.create(prodId, data)
       .subscribe(
         response => {
           console.log(response);
@@ -100,118 +87,32 @@ submitted = false;
         });
   }
 
-  add2(): void {
-    const data = {
-      warehouseStockId: this.addStock.warehouseStockId,
-      product: this.addStock.product,
-      dateOfTrans: this.addStock.dateOfTrans,
-      vendor: this.addStock.vendor,
-      batchCode: this.addStock.batchCode,
-      invoiceNum: this.addStock.invoiceNum,
-      quantity: this.addStock.quantity,
-      transType: this.addStock.transType
- 
-    };
 
-    this.create2(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
-  add3(): void {
-    const data = {
-      warehouseStockId: this.addStock.warehouseStockId,
-      product: this.addStock.product,
-      dateOfTrans: this.addStock.dateOfTrans,
-      vendor: this.addStock.vendor,
-      batchCode: this.addStock.batchCode,
-      invoiceNum: this.addStock.invoiceNum,
-      quantity: this.addStock.quantity,
-      transType: this.addStock.transType
- 
-    };
-
-    this.create3(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
-  add4(): void {
-    const data = {
-      warehouseStockId: this.addStock.warehouseStockId,
-      product: this.addStock.product,
-      dateOfTrans: this.addStock.dateOfTrans,
-      vendor: this.addStock.vendor,
-      batchCode: this.addStock.batchCode,
-      invoiceNum: this.addStock.invoiceNum,
-      quantity: this.addStock.quantity,
-      transType: this.addStock.transType
- 
-    };
-
-    this.create4(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+  formatDate(date:any) {
+    let d = new Date(date);
+    return d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
   }
 
-  add5(): void {
-    const data = {
-      warehouseStockId: this.addStock.warehouseStockId,
-      product: this.addStock.product,
-      dateOfTrans: this.addStock.dateOfTrans,
-      vendor: this.addStock.vendor,
-      batchCode: this.addStock.batchCode,
-      invoiceNum: this.addStock.invoiceNum,
-      quantity: this.addStock.quantity,
-      transType: this.addStock.transType
- 
-    };
-
-    this.create5(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+  abs(quantity:any) {
+    return Math.abs(quantity);
   }
-
-  // open(content: any) {
-  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-  //     this.closeResult = `Closed with: ${result}`;
-  //   }, (reason) => {
-  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   });
-  // }
-
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return `with: ${reason}`;
-  //   }
-  // }
 
 }
