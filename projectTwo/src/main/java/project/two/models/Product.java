@@ -12,6 +12,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
+
+@CrossOrigin
 @Entity
 @Table(name="products")
 public class Product {
