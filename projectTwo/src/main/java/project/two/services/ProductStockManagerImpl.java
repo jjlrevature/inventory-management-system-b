@@ -38,11 +38,11 @@ public class ProductStockManagerImpl implements ProductStockManager{
 	}
 	
 	public List<ProductStock>getStock() {
-		return psDAO.findAll();
+		return psDao.findAll();
 	}
 	
 	public ProductStock addStock(ProductStock prod) {
-		return psDAO.save(prod);
+		return psDao.save(prod);
 	}
 
 	@Override

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.two.dao.ProductDAO;
-import project.two.dao.ProductStockDAO;
 import project.two.models.Product;
 import project.two.models.ProductStock;
 import project.two.services.ProductStockManager;
@@ -28,28 +27,35 @@ public class ProductStockController {
 	@Autowired
 	private ProductDAO pDao;
 	
-	@GetMapping(path="/ps5",produces="application/json")
-	public int[] getPs5Stock() {
-		List<ProductStock> ps5List = psManager.getPlaystation5InStock();
-		int total = getTotal(ps5List);
-		int[] returnObj = {1,total};
-		return returnObj;
-	}
+//	@GetMapping(path="/ps5",produces="application/json")
+//	public int[] getPs5Stock() {
+//		List<ProductStock> ps5List = psManager.getPlaystation5InStock();
+//		int total = getTotal(ps5List);
+//		int[] returnObj = {1,total};
+//		return returnObj;
+//	}
+//	
+//	@GetMapping(path="/xbx",produces="application/json")
+//	public int[] getXbxStock() {
+//		List<ProductStock> xbxList = psManager.getXboxSeriesXInStock();
+//		int total = getTotal(xbxList);
+//		int[] returnObj = {2,total};
+//		return returnObj;
+//	}
+//	
+//	@GetMapping(path="/ns",produces="application/json")
+//	public int[] getNsStock() {
+//		List<ProductStock> nsList = psManager.getNintendoSwitchInStock();	
+//		int total = getTotal(nsList);
+//		int[] returnObj = {3,total};
+//		return returnObj;
+//	}
 	
-	@GetMapping(path="/xbx",produces="application/json")
-	public int[] getXbxStock() {
-		List<ProductStock> xbxList = psManager.getXboxSeriesXInStock();
-		int total = getTotal(xbxList);
-		int[] returnObj = {2,total};
-		return returnObj;
-	}
-	
-	@GetMapping(path="/ns",produces="application/json")
-	public int[] getNsStock() {
-		List<ProductStock> nsList = psManager.getNintendoSwitchInStock();	
-		int total = getTotal(nsList);
-		int[] returnObj = {3,total};
-		return returnObj;
+	@GetMapping(path="/:id",produces="application/json")
+	public int getItemCurrentStockById(int productid) {
+		List<ProductStock> product = pDao.getById(productid).getStock();
+		int total = getTotal(product);
+		return total;		
 	}
 	
 	private int getTotal(List<ProductStock> plist) {
