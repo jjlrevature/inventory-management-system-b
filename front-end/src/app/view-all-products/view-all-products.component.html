@@ -1,5 +1,5 @@
 <section class="green-section">
-<h2  (click)="logProducts()">View All Products By Category to Check Latest Quantity</h2>
+<h2>View All Products By Category to Check Latest Quantity</h2>
 <div class="card">
     <form (ngSubmit)="filtering(f)" #f="ngForm">
         <label for="statusFilter">Filter requests by ticket status</label>
@@ -25,7 +25,7 @@
     <tbody>
         <ng-container *ngIf="filter === 'all'; else other">
             <tr *ngFor="let product of products;" >
-                <td (click)="getTotal(product.productId)">{{product.productId}}</td>
+                <td>{{product.productId}}</td>
                 <td>{{product.title}}</td>
                 <td>{{product.manufacturer}}</td>
                 <td>{{product.category}}</td>
@@ -38,7 +38,7 @@
             <ng-container *ngFor="let product of products; let i = index"
             [class.active]="i == currentIndex">
                 <tr *ngIf="product.category === filter">
-                    <td (click)="getTotal(product.productId)">{{product.productId}}</td>
+                    <td>{{product.productId}}</td>
                     <td>{{product.title}}</td>
                     <td>{{product.manufacturer}}</td>
                     <td>{{product.category}}</td>

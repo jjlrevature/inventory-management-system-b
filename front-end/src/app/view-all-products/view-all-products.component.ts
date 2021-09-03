@@ -14,7 +14,7 @@ export class ViewAllProductsComponent implements OnInit {
 
   
   currentIndex = -1;
-  products?: CurrentProduct[];
+  products?: Product[];
   filter:string="all";
   
   ngOnInit() {
@@ -23,45 +23,16 @@ export class ViewAllProductsComponent implements OnInit {
 
   getProducts(){
     this.http.get<any>('http://localhost:8080/products').subscribe(
-      response => {
-        
+      response => {        
         this.products = response;
       }
     );
   }
 
-  getTotal(productid: number){
-    this.http.get<any>('http://localhost:8080/stock/' + productid).subscribe(
-      response => {
-        console.log("getTotal called");
-        return response;
-      }
-    )
-  }
-
   filtering(form:NgForm) {
     console.log(form.value.statusFilter);
     this.filter = form.value.statusFilter;
-  }
-
-  // getTotal(plist: Product) {
-	// 	let total = 0;
-  //   console.log(plist);
-  //   let newQuantity = 0;
-	// 	for(let x = 0; x < plist.stock.length; x++) {
-	// 		newQuantity = plist?.stock[x].quantity;
-	// 		if(newQuantity <= 0) {				
-	// 			total = total - Math.abs(newQuantity);
-	// 		} else {
-	// 			total = total + newQuantity;							
-	// 		}
-	// 	}		
-	// 	return total;
-	// }  
-
-  logProducts(){
-    console.log(this.products);
-  }
+  }  
 }
 
 
@@ -92,23 +63,6 @@ export class Product {
     this.currentStock = currentStock;
   }
 
-}
-
-export class CurrentProduct extends Product {
-  currentStock = 0;
-  super(title:string, category:string,manufacturer:string, minLimit:number, productId:number, stock:Stock[]){
-    this.title = title;
-    this.category = category;
-    this.manufacturer = manufacturer;
-    this.minLimit = minLimit;
-    this.productId = productId;
-    this.stock = stock;
-    this.currentStock = 0;
-  }
-
-  setCurrentStock(num: any){
-    this.currentStock = num;
-  }
 }
 
 
