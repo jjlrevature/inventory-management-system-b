@@ -2,11 +2,6 @@
 <h2>Add New Product by Category</h2>
 <div class="card">
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-    <!--
-    <div class="form-group">
-        <label for="id">Product ID </label>
-        <input type="text" name="productid" ngModel="productModel.productid">
-    </div>-->
     <div class="form-group">
         <label for="category">Category </label>
         <input type="text" name="category" ngModel="productModel.category">
@@ -28,29 +23,5 @@
     
 </form>
 
-<ng-template #isvalid><br></ng-template>
-
-<!--
-<form action="" class="form-inline" [ngStyle]="{'font-weight': 'bolder'}">
-    <div class="form-group">
-        <label for="category">Category </label>
-        <p>{{prod.category}}</p>
-    </div>
-    <div class="form-group">
-        <label for="title">Title </label>
-        <input type="text" placeholder="{{prod.title}}">
-        <p>{{prod.title}}</p>
-    </div>
-    <div class="form-group">
-        <label for="manufacturer">Manufacturer </label>
-        <input type="text" placeholder="{{prod.manufacturer}}">
-    </div>
-    <div class="form-group">
-        <label for="minimum_limit">Minimum Limit </label>
-        <input type="number" placeholder="{{prod.limit}}">
-    </div>
-    <a href="">return to products</a>
-</form>
--->
 </div>
 </section>

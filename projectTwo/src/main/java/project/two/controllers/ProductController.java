@@ -1,7 +1,5 @@
 package project.two.controllers;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +39,7 @@ public class ProductController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping(value="/add",consumes="application/json")
+	@PostMapping(value="/addProduct",consumes="application/json")
 	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
 		try {
 			Product add = prodService.addProduct(product);
@@ -51,22 +49,5 @@ public class ProductController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/products/add")
-	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String title) {
-		return null;	
-	}
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/products/{id}")
-	public ResponseEntity<Product> getProductById(@PathVariable int id) {
-		return null;
-	}
-	/*
-	@PostMapping("/products")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-		return null;
-	}
-	*/
 	
 }
