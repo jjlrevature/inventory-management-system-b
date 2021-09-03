@@ -6,6 +6,8 @@ import project.two.models.Product;
 import project.two.models.ProductStock;
 
 public interface ProductStockManager {
+	
+	public List<ProductStock> getCurrentProductStock(int productId);
 
 	public List<ProductStock> getPlaystation5InStock();
 	

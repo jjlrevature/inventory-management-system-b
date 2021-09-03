@@ -43,6 +43,12 @@ public class ProductServiceImpl implements ProductService{
 		logger.info("Getting Product By Id");
 		return productDao.getById(productID);
 	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		// TODO Auto-generated method stub
+		return productDao.findAll();
+	}
 	
 	public Product addProduct(Product product) {
 		return productDao.save(product);

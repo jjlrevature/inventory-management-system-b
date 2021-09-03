@@ -40,8 +40,17 @@ public class Product {
 
     @OneToMany(mappedBy="product", cascade=CascadeType.ALL)
     private List<ProductStock> stock;
+    
+    @Column
+    private int currentstock;
 
-    public int getProductId() {
+    public int getCurrentStock() {
+		return currentstock;
+	}
+	public void setCurrentStock(int currentstock) {
+		this.currentstock = currentstock;
+	}
+	public int getProductId() {
         return productid;
     }
     public void setProductId(int productId) {

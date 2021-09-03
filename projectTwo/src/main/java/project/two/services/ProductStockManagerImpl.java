@@ -17,22 +17,7 @@ public class ProductStockManagerImpl implements ProductStockManager{
 	private static final Logger logger = LogManager.getLogger(ProductStockManagerImpl.class.getName());
 
 	@Autowired
-	private ProductStockDAO psDAO;
-	
-	@Override
-	public List<ProductStock> getPlaystation5InStock() {
-		return psDAO.getPs5PSQuantity();
-	}
-
-	@Override
-	public List<ProductStock> getXboxSeriesXInStock() {
-		return psDAO.getXbxPSQuantity();
-	}
-
-	@Override
-	public List<ProductStock> getNintendoSwitchInStock() {
-		return psDAO.getNsPSQuantity();
-	}
+	private ProductStockDao psDao;
 	
 	public List<ProductStock>getStock() {
 		logger.info("Getting all Product Stock");
@@ -46,5 +31,12 @@ public class ProductStockManagerImpl implements ProductStockManager{
 		}
 		return psDAO.save(prod);
 	}
+
+	@Override
+	public List<ProductStock> getCurrentProductStock(int productId) {
+		// TODO Auto-generated method stub
+		return psDao.getCurrentQuantity(productId);
+	}
 	
+
 }
