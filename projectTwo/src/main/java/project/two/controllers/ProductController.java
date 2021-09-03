@@ -1,5 +1,7 @@
 package project.two.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,16 @@ import project.two.services.ProductService;
 @RequestMapping(path="/products")
 public class ProductController {
 
+	private static final Logger logger = LogManager.getLogger(ProductController.class);
+	
 	@Autowired
 	private ProductService prodService;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping(path="inDemand", produces="application/json")
-	public ResponseEntity<Object> getOnDemand() {
-		return new ResponseEntity<Object>(prodService.getOnDemand(), HttpStatus.OK);
+	@GetMapping(path="/inDemand", produces="application/json")
+	public ResponseEntity<Object> getInDemand() {
+		logger.info("Recieved Request for Items in Demand");
+		return new ResponseEntity<Object>(prodService.getInDemand(), HttpStatus.OK);
 	}
 	
 }

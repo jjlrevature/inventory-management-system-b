@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.two.dao.ProductStockDAO;
-
+import project.two.models.Product;
 import project.two.models.ProductStock;
 
 @Service
@@ -21,28 +21,30 @@ public class ProductStockManagerImpl implements ProductStockManager{
 	
 	@Override
 	public List<ProductStock> getPlaystation5InStock() {
-		// TODO Auto-generated method stub
 		return psDAO.getPs5PSQuantity();
 	}
 
 	@Override
 	public List<ProductStock> getXboxSeriesXInStock() {
-		// TODO Auto-generated method stub
 		return psDAO.getXbxPSQuantity();
 	}
 
 	@Override
 	public List<ProductStock> getNintendoSwitchInStock() {
-		// TODO Auto-generated method stub
 		return psDAO.getNsPSQuantity();
 	}
 	
 	public List<ProductStock>getStock() {
+		logger.info("Getting all Product Stock");
 		return psDAO.findAll();
 	}
 	
 	public ProductStock addStock(ProductStock prod) {
+		logger.info("Adding Product Stock");
+		if(prod.getTransType().equals("OUT")) {
+			prod.setQuantity(prod.getQuantity() * -1);
+		}
 		return psDAO.save(prod);
 	}
-
+	
 }

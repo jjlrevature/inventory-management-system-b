@@ -3,30 +3,35 @@ package project.two.controllers;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import project.two.dao.ProductDAO;
-import project.two.dao.ProductStockDAO;
 import project.two.models.Product;
 import project.two.models.ProductStock;
+import project.two.services.ProductService;
 import project.two.services.ProductStockManager;
 
 @RestController
 @RequestMapping(path="/stock", produces="application/json")
 public class ProductStockController {
 
+	private static final Logger logger = LogManager.getLogger(ProductStockController.class);
+	
 	@Autowired
 	private ProductStockManager psManager;	
 	
 	@Autowired
-	private ProductDAO pDao;
+	private ProductService pManager;
 	
 	@GetMapping(path="/ps5",produces="application/json")
 	public int[] getPs5Stock() {
@@ -53,6 +58,7 @@ public class ProductStockController {
 	}
 	
 	private int getTotal(List<ProductStock> plist) {
+		logger.info("Calculating total quantity");
 		int total = 0;
 		for(int x = 0; x < plist.size(); x++) {
 			int newQuantity = plist.get(x).getQuantity();
@@ -65,92 +71,29 @@ public class ProductStockController {
 		return total;
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	public List<ProductStock> getStock(){
+		logger.info("Recieved request for Product Stocks");
 		return psManager.getStock();
 	}
 	
-	@PostMapping(value="/add",consumes="application/json")
-	public ResponseEntity<ProductStock> createStock(@RequestBody ProductStock stock) {
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value="/add/{id}",consumes="application/json")
+	public ResponseEntity<ProductStock> createStock(@PathVariable int id, @RequestBody ProductStock stock) {
 		try {
-			Product proj = pDao.findById(1).get();
-			stock.setProduct(proj);
-			Date time = new Date();
-			stock.setDateOfTrans(time);
-			ProductStock add = psManager.addStock(stock);
-			return new ResponseEntity<>(add, HttpStatus.CREATED);
+			Product proj = pManager.findProductById(id);
+			if(proj != null) {
+				stock.setProduct(proj);
+				Date time = new Date();
+				stock.setDateOfTrans(time);
+				ProductStock add = psManager.addStock(stock);
+				return new ResponseEntity<>(add, HttpStatus.CREATED);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-//	@PostMapping(value="/add2",consumes="application/json")
-//	public ResponseEntity<ProductStock> createStock2(@RequestBody ProductStock stock) {
-//		try {
-//			Product proj = dao.findById(new Integer(2)).get();
-//			stock.setProduct(proj);
-//			Date time = new Date();
-//			stock.setDateOfTrans(time);
-//			ProductStock add = pDao.save(stock);
-//			return new ResponseEntity<>(add, HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
-//	@PostMapping(value="/add3",consumes="application/json")
-//	public ResponseEntity<ProductStock> createStock3(@RequestBody ProductStock stock) {
-//		try {
-//			Product proj = dao.findById(new Integer(3)).get();
-//
-//			stock.setProduct(proj);
-//			Date time = new Date();
-//			stock.setDateOfTrans(time);
-//			ProductStock add = repo		
-//					.save(stock);
-//			return new ResponseEntity<>(add, HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
-//	@PostMapping(value="/add3",consumes="application/json")
-//	public ResponseEntity<ProductStock> createStock4(@RequestBody ProductStock stock) {
-//		try {
-//			Product proj = dao.findById(new Integer(4)).get();
-//
-//			stock.setProduct(proj);
-//			Date time = new Date();
-//			stock.setDateOfTrans(time);
-//			ProductStock add = repo		
-//					.save(stock);
-//			return new ResponseEntity<>(add, HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
-//	@PostMapping(value="/add3",consumes="application/json")
-//	public ResponseEntity<ProductStock> createStock5(@RequestBody ProductStock stock) {
-//		try {
-//			Product proj = dao.findById(new Integer(5)).get();
-//
-//			stock.setProduct(proj);
-//			Date time = new Date();
-//			stock.setDateOfTrans(time);
-//			ProductStock add = repo		
-//					.save(stock);
-//			return new ResponseEntity<>(add, HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-	
-	
 
 }
