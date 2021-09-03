@@ -39,7 +39,7 @@ public class ProductController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping(value="/add",consumes="application/json")
+	@PostMapping(value="/addProduct",consumes="application/json")
 	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
 		try {
 			Product add = prodService.addProduct(product);
@@ -49,21 +49,5 @@ public class ProductController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	@GetMapping("/products")
-	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String title) {
-		return null;	
-	}
-	
-	@GetMapping("/products/{id}")
-	public ResponseEntity<Product> getProductById(@PathVariable int id) {
-		return null;
-	}
-	/*
-	@PostMapping("/products")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-		return null;
-	}*/
-	
 	
 }
