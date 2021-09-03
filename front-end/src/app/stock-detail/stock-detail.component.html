@@ -1,5 +1,5 @@
-<!-- (click)="open(content)" -->
-<button class="btn btn-md btn-outline-primary" >
+
+<button class="btn btn-md btn-outline-primary" (click)="open(content)">
   <i class="fa fa-user"></i>New Product Detail</button>
 
 
@@ -12,6 +12,18 @@
   </div>
   <div class="modal-body">
     <form>
+
+      <div class="form-group">
+        <label for="prodId">Product ID</label>
+        <input
+          type="number"
+          class="form-control"
+          id="prodId"
+          required
+          [(ngModel)]="addStock.prodId"
+          name="prodId"
+        />
+      </div>
 
       <div class="form-group">
         <label for="vendor">vendor</label>
@@ -52,7 +64,7 @@
       <div class="form-group">
         <label for="quantity">quantity</label>
         <input
-          type="text"
+          type="number"
           class="form-control"
           id="quantity"
           required
@@ -63,21 +75,30 @@
 
       <div class="form-group">
         <label for="transType">transType</label>
-        <input
-          type="text"
-          class="form-control"
-          id="transType"
-          required
-          [(ngModel)]="addStock.transType"
-          name="transType"
-        />
+        <div>
+          <input
+            type="radio"
+            id="transType"
+            value="IN"
+            required
+            [(ngModel)]="addStock.transType"
+            name="transType"
+          />
+            <label id="radio" for="IN"> IN</label>
+          
+          <input
+            type="radio"
+            id="transType"
+            value="OUT"
+            required
+            [(ngModel)]="addStock.transType"
+            name="transType"
+          />
+            <label id="radio" for="OUT"> OUT</label>
+        </div>
       </div>
       
-<button (click)="add()" class="btn btn-success">Product1</button>
-<button (click)="add2()" class="btn btn-success">Product2</button>
-<button (click)="add3()" class="btn btn-success">Product3</button>
-<!-- <button (click)="add4()" class="btn btn-success">Product4</button>
-<button (click)="add5()" class="btn btn-success">Product5</button> -->
+      <button (click)="add()" class="btn btn-success">Add Stock</button>
     </form>
   </div>
 </ng-template>
@@ -97,11 +118,11 @@
     <tbody>
     <tr *ngFor="let stock of stockdetail">
       <td><span>{{stock.warehouseStockId}}</span></td>
-      <td><span>{{stock.dateOfTrans}}</span></td>
+      <td><span>{{formatDate(stock.dateOfTrans)}}</span></td>
       <td><span>{{stock.vendor}}</span></td>
       <td><span>{{stock.batchCode}}</span></td>
       <td><span>{{stock.invoiceNum}}</span></td>
-      <td><span>{{stock.quantity}}</span></td>
+      <td><span>{{abs(stock.quantity)}}</span></td>
       <td><span>{{stock.transType}}</span></td>
     </tr>
     </tbody>

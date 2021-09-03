@@ -7,7 +7,7 @@ import project.two.models.Product;
 
 public interface ProductService {
 
-	public List<Map<String, Object>> getOnDemand();
+	public List<Map<String, Object>> getInDemand();
 	
 	public Product findProductById(int productID);
 	
