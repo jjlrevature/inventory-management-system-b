@@ -7,11 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import project.two.dao.ProductDAO;
 
 public class ProductManagerImpl {
-/*
+	/*
 	public Product addProduct(Product product) {
 		CrudRepository<Product, Integer> productDAO = null;
 		return productDAO.save(product);
-	}
+	}*/
+	/*
+	@CrossOrigin
 	public Product create(Product p) {
 		CrudRepository<Product, Integer> productDAO = null;
 		return productDAO.save(p);

@@ -48,11 +48,12 @@ public class ProductController {
 		}
 	}
 	
-	@GetMapping("/products")
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/products/add")
 	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String title) {
 		return null;	
 	}
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> getProductById(@PathVariable int id) {
 		return null;
@@ -61,7 +62,7 @@ public class ProductController {
 	@PostMapping("/products")
 	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
 		return null;
-	}*/
-	
+	}
+	*/
 	
 }

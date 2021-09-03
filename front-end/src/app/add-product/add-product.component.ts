@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
   products:product[] = []; 
 
   ngOnInit(): void {
-    this.getProducts();
+    //this.getProducts();
   }
   
   getProducts(){
@@ -46,11 +46,11 @@ export class AddProductComponent implements OnInit {
 
   onSubmit(form:NgForm) {
     console.log(form);
-    this.http.post("http://localhost:8080/products/new", ({
+    this.http.post("http://localhost:8080/products/add", ({
         minLimit: form.value.minLimit,
         category: form.value.category,
         title: form.value.title,
-        manufacturer: form.value.manufacturer,
+        manufacturer: form.value.manufacturer
       }))
       .subscribe({
         next:(data:any)=>{
