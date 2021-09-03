@@ -7,8 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.two.dao.ProductStockDAO;
-import project.two.models.Product;
+import project.two.dao.ProductStockDao;
 import project.two.models.ProductStock;
 
 @Service
@@ -21,7 +20,7 @@ public class ProductStockManagerImpl implements ProductStockManager{
 	
 	public List<ProductStock>getStock() {
 		logger.info("Getting all Product Stock");
-		return psDAO.findAll();
+		return psDao.findAll();
 	}
 	
 	public ProductStock addStock(ProductStock prod) {
@@ -29,7 +28,7 @@ public class ProductStockManagerImpl implements ProductStockManager{
 		if(prod.getTransType().equals("OUT")) {
 			prod.setQuantity(prod.getQuantity() * -1);
 		}
-		return psDAO.save(prod);
+		return psDao.save(prod);
 	}
 
 	@Override
@@ -37,6 +36,7 @@ public class ProductStockManagerImpl implements ProductStockManager{
 		// TODO Auto-generated method stub
 		return psDao.getCurrentQuantity(productId);
 	}
+
 	
 
 }

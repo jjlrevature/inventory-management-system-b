@@ -9,18 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import project.two.dao.ProductDAO;
 import project.two.models.Product;
 import project.two.models.ProductStock;
 import project.two.services.ProductService;
-import project.two.services.ProductStockManager;
 
 @RestController
 @RequestMapping(path="/products")
@@ -31,15 +27,13 @@ public class ProductController {
 	@Autowired
 	private ProductService prodService;
 	
-	@Autowired
-	private ProductDAO pDao;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path="/inDemand", produces="application/json")
 	public ResponseEntity<Object> getInDemand() {
 		logger.info("Recieved Request for Items in Demand");
 		return new ResponseEntity<Object>(prodService.getInDemand(), HttpStatus.OK);
-	private ProductStockManager psManager;
+	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path="", produces="application/json")
