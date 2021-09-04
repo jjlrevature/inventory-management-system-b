@@ -23,6 +23,8 @@ email the appropriate contact when a product falls below the threshold.
 # Getting Started
 
 First clone the repository or download the zip and then import it to your IDE of choice
+![sfd](https://user-images.githubusercontent.com/51238426/132087530-47818d2b-da08-48ec-b7e0-6b8e975a2288.PNG)
+
 
 Then reconfigure the properties file to your personal database, populate it if necessary,
 
