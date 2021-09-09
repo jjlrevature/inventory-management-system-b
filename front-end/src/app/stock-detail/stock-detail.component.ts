@@ -5,11 +5,6 @@ import { Observable } from 'rxjs';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 const baseUrl = 'http://localhost:8080/stock/add';
-const baseUrl2 = 'http://localhost:8080/stock/add2';
-const baseUrl3 = 'http://localhost:8080/stock/add3';
-const baseUrl4 = 'http://localhost:8080/stock/add4';
-const baseUrl5 = 'http://localhost:8080/stock/add5';
-
 
 export class Stock {
   prodId?: number;
@@ -75,7 +70,7 @@ submitted = false;
       transType: this.addStock.transType
  
     };
-
+if(confirm("You have succesfully added a product detail"))
     this.create(prodId, data)
       .subscribe(
         response => {
