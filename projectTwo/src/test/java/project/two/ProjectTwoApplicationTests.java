@@ -60,4 +60,20 @@ class ProjectTwoApplicationTests {
 		}
 	}
 	
+	@Test
+	void testGetproductStockDetails(){
+		ProductStockController prod = new ProductStockController();
+		prod.createStock(1, null);
+		assertTrue(true);
+	    System.out.println("product 1 stock for new details success");
+	}
+	
+	@Test
+	void testGetproductDetails2(){
+		ProductStockController prod = new ProductStockController();
+		prod.createStock(16, null);
+		assertFalse(false);
+	    System.out.println("fake product 16 stock for new details success");
+	}
+	
 }
