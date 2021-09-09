@@ -68,6 +68,7 @@ public class ProductStockController {
 				Date time = new Date();
 				stock.setDateOfTrans(time);
 				ProductStock add = psManager.addStock(stock);
+				logger.info("adding new product stock detail");
 				return new ResponseEntity<>(add, HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
