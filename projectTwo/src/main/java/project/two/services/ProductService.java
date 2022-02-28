@@ -11,8 +11,10 @@ public interface ProductService {
 	
 	public Product findProductById(int productID);
 	
-	public Product addProduct(Product product);
+	public Product saveProduct(Product product);
 	
 	public List<Product> getAllProducts();
+	
+	public boolean ifProductExists(int product_id);
 	
 }

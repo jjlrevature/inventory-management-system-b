@@ -2,6 +2,8 @@ package project.two.controllers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ public class ProductController {
 	@Autowired
 	private ProductService prodService;
 	
-	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path="/inDemand", produces="application/json")
 	public ResponseEntity<Object> getInDemand() {
@@ -35,44 +36,81 @@ public class ProductController {
 		return new ResponseEntity<Object>(prodService.getInDemand(), HttpStatus.OK);
 	}
 	
+	// method before refactoring
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@GetMapping(path="", produces="application/json")
+//	public ResponseEntity<List<Product>> getAllProducts() {
+//		List<Product> list = prodService.getAllProducts();
+//		for(int x = 0; x < list.size(); x++) {
+//			int y = x + 1;
+//			List<ProductStock> pStock = list.get(x).getStock();
+//			int total = getTotal(pStock);
+//			list.get(x).setCurrentStock(total);
+//		}
+//		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+//	}
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path="", produces="application/json")
-	public ResponseEntity<List<Product>> getAllProducts() {
-		List<Product> list = prodService.getAllProducts();
-		for(int x = 0; x < list.size(); x++) {
-			int y = x + 1;
-			List<ProductStock> pStock = list.get(x).getStock();
-			int total = getTotal(pStock);
-			list.get(x).setCurrentStock(total);
+	public ResponseEntity<List<Product>> getAllProducts() {		
+		ResponseEntity<List<Product>> allProducts = null;
+		List<Product> productList = prodService.getAllProducts();
+		
+		if(productList.size() > 0) {
+			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.NO_CONTENT); // 204
+			logger.info("getAllProducts called but had no content");
+		} else {
+			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.OK); // 200
+			logger.info("getAllProducts called and returned all products");
 		}
-		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+		
+		return allProducts;
 	}
+	
+	// method before refactoring
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@PostMapping(value="/addProduct",consumes="application/json")
+//	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+//		try {
+//			Product add = prodService.addProduct(product);
+//			return new ResponseEntity<>(add, HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/addProduct",consumes="application/json")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-		try {
-			Product add = prodService.addProduct(product);
-			return new ResponseEntity<>(add, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+		ResponseEntity<Product> savedProduct = null;
+		if(prodService.ifProductExists(product.getProductId())) {
+			// product id already exists
+			savedProduct = new ResponseEntity<Product>(product, HttpStatus.CONFLICT); // 409
+			logger.error("saveProduct called but product already existed");
+		} else {
+			// product created
+			prodService.saveProduct(product);
+			savedProduct = new ResponseEntity<Product>(product,HttpStatus.CREATED); // 201
+			logger.info("saveProduct was called and product saved successfully");
 		}
+		
+		return savedProduct;
 	}
 	
 	
-	private int getTotal(List<ProductStock> plist) {
-		int total = 0;
-		for(int x = 0; x < plist.size(); x++) {
-			int newQuantity = plist.get(x).getQuantity();
-			if(newQuantity < 0) {				
-				total = total - Math.abs(newQuantity);
-			} else {
-				total = total + newQuantity;							
-			}
-		}		
-		return total;
-	}
+//	private int getTotal(List<ProductStock> plist) {
+//		int total = 0;
+//		for(int x = 0; x < plist.size(); x++) {
+//			int newQuantity = plist.get(x).getQuantity();
+//			if(newQuantity < 0) {				
+//				total = total - Math.abs(newQuantity);
+//			} else {
+//				total = total + newQuantity;							
+//			}
+//		}		
+//		return total;
+//	}
 
 	
 }

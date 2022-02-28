@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,5 +53,18 @@ public class ProductServiceImpl implements ProductService{
 	
 	public Product addProduct(Product product) {
 		return productDao.save(product);
+	}
+
+	@Override
+	public Product saveProduct(Product product) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean ifProductExists(int product_id) {
+		// TODO Auto-generated method stub
+		Optional<Product> product = productDao.findById(product_id);
+		return product.isPresent();
 	}
 }
