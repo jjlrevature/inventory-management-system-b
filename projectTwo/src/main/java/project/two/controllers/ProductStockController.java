@@ -1,5 +1,6 @@
 package project.two.controllers;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -35,45 +36,85 @@ public class ProductStockController {
 	
 	@Autowired
 	private ProductService pManager;
-	
-	
-	private int getTotal(List<ProductStock> plist) {
-		logger.info("Calculating total quantity");
-		int total = 0;
-		for(int x = 0; x < plist.size(); x++) {
-			int newQuantity = plist.get(x).getQuantity();
-			if(newQuantity < 0) {				
-				total = total - Math.abs(newQuantity);
-			} else {
-				total = total + newQuantity;							
-			}
-		}		
-		return total;
-	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
-	public List<ProductStock> getStock(){
-		logger.info("Recieved request for Product Stocks");
-		return psManager.getStock();
+	public ResponseEntity<List<ProductStock>> getProductStock() {
+		ResponseEntity<List<ProductStock>> returnedEntity = null;
+		List<ProductStock> list = psManager.getStock();
+		
+		if(list.size() > 0) {
+			// list is populated with objects
+			returnedEntity = new ResponseEntity<List<ProductStock>>(list,HttpStatus.OK); // 200
+			logger.info("getProductStock was called and returned a populated list");
+		} else if (list.size() == 0) {
+			// list is empty
+			returnedEntity = new ResponseEntity<List<ProductStock>>(list,HttpStatus.NO_CONTENT); // 204
+			logger.info("getProductStock was called and returned an unpopulated list");
+		} else {
+			// error
+			returnedEntity = new ResponseEntity<List<ProductStock>>(list,HttpStatus.INTERNAL_SERVER_ERROR); // 500
+			logger.error("getProductStock was called and there was an error");
+		}
+		
+		return returnedEntity;
 	}
+
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/add/{id}",consumes="application/json")
 	public ResponseEntity<ProductStock> createStock(@PathVariable int id, @RequestBody ProductStock stock) {
-		try {
-			Product proj = pManager.findProductById(id);
-			if(proj != null) {
-				stock.setProduct(proj);
-				Date time = new Date();
-				stock.setDateOfTrans(time);
-				ProductStock add = psManager.addStock(stock);
-				logger.info("adding new product stock detail");
-				return new ResponseEntity<>(add, HttpStatus.CREATED);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		ResponseEntity<ProductStock> returnedEntity = null;
+		Product proj = pManager.findProductById(id);
+		LocalDateTime ldt = LocalDateTime.now();
+		if(pManager.ifProductExists(id)) {
+			// product already exists
+			returnedEntity = new ResponseEntity<ProductStock>(stock, HttpStatus.CONFLICT); // 409
+		} else {
+			stock.setProduct(proj);
+			stock.setDateOfTrans(ldt);
+			returnedEntity = new ResponseEntity<ProductStock>(stock, HttpStatus.CREATED); // 201
 		}
-		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		return returnedEntity;
+		
+		// old code
+//		try {
+//			Product proj = pManager.findProductById(id);
+//			if(proj != null) {
+//				stock.setProduct(proj);
+//				Date time = new Date();
+//				stock.setDateOfTrans(time);
+//				ProductStock add = psManager.addStock(stock);
+//				logger.info("adding new product stock detail");
+//				return new ResponseEntity<>(add, HttpStatus.CREATED);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	// method from before refactoring	
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@GetMapping
+//	public List<ProductStock> getStock(){
+//		logger.info("Recieved request for Product Stocks");
+//		return psManager.getStock();
+//	}
+	
+	// was not being used
+//	private int getTotal(List<ProductStock> plist) {
+//		logger.info("Calculating total quantity");
+//		int total = 0;
+//		for(int x = 0; x < plist.size(); x++) {
+//			int newQuantity = plist.get(x).getQuantity();
+//			if(newQuantity < 0) {				
+//				total = total - Math.abs(newQuantity);
+//			} else {
+//				total = total + newQuantity;							
+//			}
+//		}		
+//		return total;
+//	}
 }

@@ -1,6 +1,7 @@
 package project.two.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,6 +36,13 @@ public class ProductStockManagerImpl implements ProductStockManager{
 	public List<ProductStock> getCurrentProductStock(int productId) {
 		// TODO Auto-generated method stub
 		return psDao.getCurrentQuantity(productId);
+	}
+
+	@Override
+	public boolean ifProductStockExists(int productStockId) {
+		// TODO Auto-generated method stub
+		Optional<ProductStock> product = psDao.findById(productStockId);
+		return product.isPresent();
 	}
 
 	

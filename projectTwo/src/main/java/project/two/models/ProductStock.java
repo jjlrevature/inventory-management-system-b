@@ -1,5 +1,6 @@
 package project.two.models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class ProductStock {
     private Product product;
 
     @Column(name="transaction_date")
-    private Date dateOfTrans;
+    private LocalDateTime dateOfTrans;
 
     private String vendor;
 
@@ -51,10 +52,10 @@ public class ProductStock {
         this.warehouseStockId = warehouseStockId;
     }
 
-    public Date getDateOfTrans() {
+    public LocalDateTime getDateOfTrans() {
         return dateOfTrans;
     }
-    public void setDateOfTrans(Date dateOfTrans) {
+    public void setDateOfTrans(LocalDateTime dateOfTrans) {
         this.dateOfTrans = dateOfTrans;
     }
     public String getVendor() {
