@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import project.two.controllers.ProductStockController;
 import project.two.models.Product;
 import project.two.models.ProductStock;
 import project.two.services.ProductService;
