@@ -23,8 +23,6 @@ export class Stock {
   templateUrl: './stock-detail.component.html',
   styleUrls: ['./stock-detail.component.css']
 })
-
-
 export class StockDetailComponent implements OnInit {
 stockdetail?: Stock[];
 closeResult: string | undefined;

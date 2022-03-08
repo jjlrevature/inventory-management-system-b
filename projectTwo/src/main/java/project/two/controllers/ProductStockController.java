@@ -25,6 +25,8 @@ import project.two.services.ProductStockManager;
 
 
 
+
+
 @RestController
 @RequestMapping(path="/stock", produces="application/json")
 public class ProductStockController {
@@ -37,6 +39,13 @@ public class ProductStockController {
 	@Autowired
 	private ProductService pManager;
 
+	/**
+	 * @author Jesse
+	 * refactored method to retrieve a list of all Product Stock.
+	 * will return status 200 if the list is found and populated.
+	 * will return status 204 if the list is found and not populated.
+	 * will return status 500 if there was an error retrieving list.
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	public ResponseEntity<List<ProductStock>> getProductStock() {
@@ -60,7 +69,12 @@ public class ProductStockController {
 		return returnedEntity;
 	}
 
-	
+	/**
+	 * @author Jesse
+	 * refactored method to save a new product stock to the database.
+	 * returns status code 409 if product stock with attempted ID already exists.
+	 * returns status 201 if the stock saves successfully.
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/add/{id}",consumes="application/json")
 	public ResponseEntity<ProductStock> createStock(@PathVariable int id, @RequestBody ProductStock stock) {

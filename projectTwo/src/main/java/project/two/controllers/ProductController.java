@@ -20,6 +20,8 @@ import project.two.models.Product;
 import project.two.models.ProductStock;
 import project.two.services.ProductService;
 
+
+
 @RestController
 @RequestMapping(path="/products")
 public class ProductController {
@@ -32,24 +34,17 @@ public class ProductController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path="/inDemand", produces="application/json")
 	public ResponseEntity<Object> getInDemand() {
-		logger.info("Recieved Request for Items in Demand");
+		logger.info("Received Request for Items in Demand");
 		return new ResponseEntity<Object>(prodService.getInDemand(), HttpStatus.OK);
-	}
-	
-	// method before refactoring
-//	@CrossOrigin(origins = "http://localhost:4200")
-//	@GetMapping(path="", produces="application/json")
-//	public ResponseEntity<List<Product>> getAllProducts() {
-//		List<Product> list = prodService.getAllProducts();
-//		for(int x = 0; x < list.size(); x++) {
-//			int y = x + 1;
-//			List<ProductStock> pStock = list.get(x).getStock();
-//			int total = getTotal(pStock);
-//			list.get(x).setCurrentStock(total);
-//		}
-//		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
-//	}
-	
+	}	
+
+	/**
+	 * @author Jesse
+	 * refactored method for retrieving all products
+	 * will return a 204 status and empty list is retrieved
+	 * list is not populated, or a 200 status with a populated
+	 * list.
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path="", produces="application/json")
 	public ResponseEntity<List<Product>> getAllProducts() {		
@@ -57,29 +52,23 @@ public class ProductController {
 		List<Product> productList = prodService.getAllProducts();
 		
 		if(productList.size() > 0) {
-			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.NO_CONTENT); // 204
+			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.OK); // 200
 			logger.info("getAllProducts called but had no content");
 		} else {
-			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.OK); // 200
+			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.NO_CONTENT); // 204
 			logger.info("getAllProducts called and returned all products");
 		}
 		
 		return allProducts;
 	}
 	
-	// method before refactoring
-//	@CrossOrigin(origins = "http://localhost:4200")
-//	@PostMapping(value="/addProduct",consumes="application/json")
-//	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-//		try {
-//			Product add = prodService.addProduct(product);
-//			return new ResponseEntity<>(add, HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-	
+	/**
+	 * @author Jesse
+	 * refactored method to save a product to the database.
+	 * will return status 409 if product with that ID
+	 * already exists in the database, will return status 201 if
+	 * the product saves successfully
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/addProduct",consumes="application/json")
 	public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
@@ -98,7 +87,33 @@ public class ProductController {
 		return savedProduct;
 	}
 	
+	// method before refactoring
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@PostMapping(value="/addProduct",consumes="application/json")
+//	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+//		try {
+//			Product add = prodService.addProduct(product);
+//			return new ResponseEntity<>(add, HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 	
+	// method before refactoring
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@GetMapping(path="", produces="application/json")
+//	public ResponseEntity<List<Product>> getAllProducts() {
+//		List<Product> list = prodService.getAllProducts();
+//		for(int x = 0; x < list.size(); x++) {
+//			int y = x + 1;
+//			List<ProductStock> pStock = list.get(x).getStock();
+//			int total = getTotal(pStock);
+//			list.get(x).setCurrentStock(total);
+//		}
+//		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+//	}
+	// method was not being used
 //	private int getTotal(List<ProductStock> plist) {
 //		int total = 0;
 //		for(int x = 0; x < plist.size(); x++) {
