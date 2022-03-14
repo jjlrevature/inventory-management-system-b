@@ -22,6 +22,7 @@ import project.two.services.ProductService;
 
 
 
+
 @RestController
 @RequestMapping(path="/products")
 public class ProductController {
@@ -86,6 +87,18 @@ public class ProductController {
 		
 		return savedProduct;
 	}
+	
+	
+	/**
+	 * @author Jesse
+	 * Method to Update Product 
+	 */
+	
+	/**
+	 * @author Jesse
+	 * Method to Delete Product 
+	 */
+	
 	
 	// method before refactoring
 //	@CrossOrigin(origins = "http://localhost:4200")
