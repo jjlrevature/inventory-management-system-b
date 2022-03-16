@@ -17,4 +17,6 @@ public interface ProductService {
 	
 	public boolean ifProductExists(int product_id);
 	
+	public Product updateProduct(Product product);
+	
 }

@@ -50,13 +50,14 @@ public class ProductController {
 	@GetMapping(path="", produces="application/json")
 	public ResponseEntity<List<Product>> getAllProducts() {		
 		ResponseEntity<List<Product>> allProducts = null;
-		List<Product> productList = prodService.getAllProducts();
-		
-		if(productList.size() > 0) {
-			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.OK); // 200
+		List<Product> productList = prodService.getAllProducts();		
+		if(productList.size() == 0) {
+			// method was called but no products were found
+			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.NO_CONTENT); // 200
 			logger.info("getAllProducts called but had no content");
 		} else {
-			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.NO_CONTENT); // 204
+			// all products were returned
+			allProducts = new ResponseEntity<List<Product>>(productList,HttpStatus.OK); // 204
 			logger.info("getAllProducts called and returned all products");
 		}
 		
@@ -93,7 +94,22 @@ public class ProductController {
 	 * @author Jesse
 	 * Method to Update Product 
 	 */
-	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value="/updateProduct", consumes="application/json")
+	public ResponseEntity<Product> updateProduct(@RequestBody Product product){
+		ResponseEntity<Product> updatedProduct = null;
+		
+		if(prodService.ifProductExists(product.getProductId())) {
+			// product does exist
+			logger.info("product was successfully updated in the database");
+			updatedProduct = new ResponseEntity<Product>(prodService.updateProduct(product), HttpStatus.OK); // 200);
+		} else {
+			// no product was found
+			logger.info("update product was attempted but no product was found");
+			updatedProduct = new ResponseEntity<Product>(product, HttpStatus.NO_CONTENT); // 204
+		}
+		return updatedProduct;
+	}
 	/**
 	 * @author Jesse
 	 * Method to Delete Product 

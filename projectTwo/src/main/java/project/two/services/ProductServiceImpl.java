@@ -51,14 +51,10 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.findAll();
 	}
 	
-	public Product addProduct(Product product) {
-		return productDao.save(product);
-	}
-
 	@Override
 	public Product saveProduct(Product product) {
 		// TODO Auto-generated method stub
-		return null;
+		return productDao.save(product);
 	}
 
 	@Override
@@ -66,5 +62,14 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		Optional<Product> product = productDao.findById(product_id);
 		return product.isPresent();
+	}
+	
+	@Override
+	public Product updateProduct(Product product) {
+		Product temp = product;
+		Product prod = productDao.getById(product.getProductId());
+		prod = temp;
+		productDao.save(prod);		
+		return prod;
 	}
 }
