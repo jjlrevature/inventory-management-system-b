@@ -72,4 +72,11 @@ public class ProductServiceImpl implements ProductService{
 		productDao.save(prod);		
 		return prod;
 	}
+
+	@Override
+	public Product deleteProduct(Product product) {
+		// TODO Auto-generated method stub
+		productDao.delete(product);
+		return product;
+	}
 }

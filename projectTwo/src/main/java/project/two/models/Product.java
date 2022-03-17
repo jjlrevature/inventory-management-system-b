@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
-    @SequenceGenerator(name="id_generator", sequenceName = "product_id_seq", allocationSize = 1)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+    //@SequenceGenerator(name="id_generator", sequenceName = "product_id_seq", allocationSize = 1)
     @Column
     private int productid;
 
