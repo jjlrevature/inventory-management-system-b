@@ -130,46 +130,5 @@ public class ProductController {
 		}
 		return returnedProduct;
 	}
-	
-	// method before refactoring
-//	@CrossOrigin(origins = "http://localhost:4200")
-//	@PostMapping(value="/addProduct",consumes="application/json")
-//	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-//		try {
-//			Product add = prodService.addProduct(product);
-//			return new ResponseEntity<>(add, HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-	
-	// method before refactoring
-//	@CrossOrigin(origins = "http://localhost:4200")
-//	@GetMapping(path="", produces="application/json")
-//	public ResponseEntity<List<Product>> getAllProducts() {
-//		List<Product> list = prodService.getAllProducts();
-//		for(int x = 0; x < list.size(); x++) {
-//			int y = x + 1;
-//			List<ProductStock> pStock = list.get(x).getStock();
-//			int total = getTotal(pStock);
-//			list.get(x).setCurrentStock(total);
-//		}
-//		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
-//	}
-	// method was not being used
-//	private int getTotal(List<ProductStock> plist) {
-//		int total = 0;
-//		for(int x = 0; x < plist.size(); x++) {
-//			int newQuantity = plist.get(x).getQuantity();
-//			if(newQuantity < 0) {				
-//				total = total - Math.abs(newQuantity);
-//			} else {
-//				total = total + newQuantity;							
-//			}
-//		}		
-//		return total;
-//	}
-
-	
+		
 }

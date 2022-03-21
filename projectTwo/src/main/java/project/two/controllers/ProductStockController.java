@@ -23,10 +23,6 @@ import project.two.models.ProductStock;
 import project.two.services.ProductService;
 import project.two.services.ProductStockManager;
 
-
-
-
-
 @RestController
 @RequestMapping(path="/stock", produces="application/json")
 public class ProductStockController {
@@ -64,8 +60,7 @@ public class ProductStockController {
 			// error
 			returnedEntity = new ResponseEntity<List<ProductStock>>(list,HttpStatus.INTERNAL_SERVER_ERROR); // 500
 			logger.error("getProductStock was called and there was an error");
-		}
-		
+		}		
 		return returnedEntity;
 	}
 
@@ -88,47 +83,8 @@ public class ProductStockController {
 			stock.setProduct(proj);
 			stock.setDateOfTrans(ldt);
 			returnedEntity = new ResponseEntity<ProductStock>(stock, HttpStatus.CREATED); // 201
-		}
-		
+		}		
 		return returnedEntity;
-		
-		// old code
-//		try {
-//			Product proj = pManager.findProductById(id);
-//			if(proj != null) {
-//				stock.setProduct(proj);
-//				Date time = new Date();
-//				stock.setDateOfTrans(time);
-//				ProductStock add = psManager.addStock(stock);
-//				logger.info("adding new product stock detail");
-//				return new ResponseEntity<>(add, HttpStatus.CREATED);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-	// method from before refactoring	
-//	@CrossOrigin(origins = "http://localhost:4200")
-//	@GetMapping
-//	public List<ProductStock> getStock(){
-//		logger.info("Recieved request for Product Stocks");
-//		return psManager.getStock();
-//	}
-	
-	// was not being used
-//	private int getTotal(List<ProductStock> plist) {
-//		logger.info("Calculating total quantity");
-//		int total = 0;
-//		for(int x = 0; x < plist.size(); x++) {
-//			int newQuantity = plist.get(x).getQuantity();
-//			if(newQuantity < 0) {				
-//				total = total - Math.abs(newQuantity);
-//			} else {
-//				total = total + newQuantity;							
-//			}
-//		}		
-//		return total;
-//	}
+		
 }
