@@ -45,6 +45,12 @@ public class ProductStockManagerImpl implements ProductStockManager{
 		return product.isPresent();
 	}
 
+	@Override
+	public ProductStock updateProduct(ProductStock prod) {
+		// TODO Auto-generated method stub
+		return psDao.save(prod);
+	}
+
 	
 
 }

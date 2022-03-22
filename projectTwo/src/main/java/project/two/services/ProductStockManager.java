@@ -13,5 +13,7 @@ public interface ProductStockManager {
 	
 	public ProductStock addStock(ProductStock prod);
 	
+	public ProductStock updateProduct(ProductStock prod);
+	
 	public boolean ifProductStockExists(int productStockId);
 }

@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -86,5 +88,41 @@ public class ProductStockController {
 		}		
 		return returnedEntity;
 	}
-		
+	
+	/**
+	 * @author Jesse
+	 * Method to update a product stock
+	 */
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping(value="updateProductStock/{id}", consumes="application/json")
+	public ResponseEntity<ProductStock> updateStock(@PathVariable int id, @RequestBody ProductStock stock) {
+		ResponseEntity<ProductStock> returnedEntity = null;
+		if(psManager.ifProductStockExists(id)) {
+			logger.info("update product stock method was called and accepted");
+			psManager.updateProduct(stock);
+			returnedEntity = new ResponseEntity<ProductStock>(stock, HttpStatus.ACCEPTED); // 202
+		} else {
+			logger.info("update product stock method was called but no product stock was found");
+			returnedEntity = new ResponseEntity<ProductStock>(stock, HttpStatus.NOT_FOUND); // 404
+		}
+		return returnedEntity;	
+	}
+	
+	/**
+	 * @author Jesse
+	 * Method to delete a product stock
+	 */
+	@CrossOrigin(origins = "http://localhost:4200")
+	@DeleteMapping(value="deleteProductStock", consumes="application/json")
+	public ResponseEntity<ProductStock> deleteStock(@RequestBody ProductStock stock){
+		ResponseEntity<ProductStock> returnedStock = null;
+		if(psManager.ifProductStockExists(stock.getWarehouseStockId())) {
+			logger.info("delete stock was called and was deleted");
+			returnedStock = new ResponseEntity<ProductStock>(stock, HttpStatus.ACCEPTED); // 202
+		} else {
+			logger.info("delete stock was called but no stock was found");
+			returnedStock = new ResponseEntity<ProductStock>(stock, HttpStatus.NO_CONTENT); // 404
+		}
+		return returnedStock;
+	}
 }
